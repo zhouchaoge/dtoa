@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tl.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.tl.pojo.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="real_pass" property="realPass" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="activated" property="activated" jdbcType="TINYINT" />
+    <result column="onjob" property="onjob" jdbcType="TINYINT" />
+    <result column="approve_access" property="approveAccess" jdbcType="TINYINT" />
+    <result column="access_level" property="accessLevel" jdbcType="TINYINT" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="direct_line" property="directLine" jdbcType="VARCHAR" />
+    <result column="branch_phone" property="branchPhone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_name" property="createName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="entry_time" property="entryTime" jdbcType="TIMESTAMP" />
+    <result column="positive_time" property="positiveTime" jdbcType="TIMESTAMP" />
+    <result column="leave_time" property="leaveTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="directSuperior_id" property="directsuperiorId" jdbcType="INTEGER" />
+    <result column="directSuperior_name" property="directsuperiorName" jdbcType="VARCHAR" />
+    <result column="attendance_access" property="attendanceAccess" jdbcType="TINYINT" />
+    <result column="can_adjust_hour" property="canAdjustHour" jdbcType="DOUBLE" />
+    <result column="already_annual_hour" property="alreadyAnnualHour" jdbcType="DOUBLE" />
+    <result column="assets_access" property="assetsAccess" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, real_name, pass, real_pass, code, activated, onjob, approve_access, access_level, 
+    sex, birth, direct_line, branch_phone, mobile, email, company_id, company_name, department_id, 
+    department_name, position, create_id, create_name, create_time, update_time, entry_time, 
+    positive_time, leave_time, last_login_time, directSuperior_id, directSuperior_name, 
+    attendance_access, can_adjust_hour, already_annual_hour, assets_access
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tl.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tl.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tl.pojo.User" >
+    insert into user (id, name, real_name, 
+      pass, real_pass, code, 
+      activated, onjob, approve_access, 
+      access_level, sex, birth, 
+      direct_line, branch_phone, mobile, 
+      email, company_id, company_name, 
+      department_id, department_name, position, 
+      create_id, create_name, create_time, 
+      update_time, entry_time, positive_time, 
+      leave_time, last_login_time, directSuperior_id, 
+      directSuperior_name, attendance_access, can_adjust_hour, 
+      already_annual_hour, assets_access)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{pass,jdbcType=VARCHAR}, #{realPass,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{activated,jdbcType=TINYINT}, #{onjob,jdbcType=TINYINT}, #{approveAccess,jdbcType=TINYINT}, 
+      #{accessLevel,jdbcType=TINYINT}, #{sex,jdbcType=TINYINT}, #{birth,jdbcType=TIMESTAMP}, 
+      #{directLine,jdbcType=VARCHAR}, #{branchPhone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{entryTime,jdbcType=TIMESTAMP}, #{positiveTime,jdbcType=TIMESTAMP}, 
+      #{leaveTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{directsuperiorId,jdbcType=INTEGER}, 
+      #{directsuperiorName,jdbcType=VARCHAR}, #{attendanceAccess,jdbcType=TINYINT}, #{canAdjustHour,jdbcType=DOUBLE}, 
+      #{alreadyAnnualHour,jdbcType=DOUBLE}, #{assetsAccess,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tl.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="realPass != null" >
+        real_pass,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="activated != null" >
+        activated,
+      </if>
+      <if test="onjob != null" >
+        onjob,
+      </if>
+      <if test="approveAccess != null" >
+        approve_access,
+      </if>
+      <if test="accessLevel != null" >
+        access_level,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="directLine != null" >
+        direct_line,
+      </if>
+      <if test="branchPhone != null" >
+        branch_phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createName != null" >
+        create_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="entryTime != null" >
+        entry_time,
+      </if>
+      <if test="positiveTime != null" >
+        positive_time,
+      </if>
+      <if test="leaveTime != null" >
+        leave_time,
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time,
+      </if>
+      <if test="directsuperiorId != null" >
+        directSuperior_id,
+      </if>
+      <if test="directsuperiorName != null" >
+        directSuperior_name,
+      </if>
+      <if test="attendanceAccess != null" >
+        attendance_access,
+      </if>
+      <if test="canAdjustHour != null" >
+        can_adjust_hour,
+      </if>
+      <if test="alreadyAnnualHour != null" >
+        already_annual_hour,
+      </if>
+      <if test="assetsAccess != null" >
+        assets_access,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="realPass != null" >
+        #{realPass,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        #{activated,jdbcType=TINYINT},
+      </if>
+      <if test="onjob != null" >
+        #{onjob,jdbcType=TINYINT},
+      </if>
+      <if test="approveAccess != null" >
+        #{approveAccess,jdbcType=TINYINT},
+      </if>
+      <if test="accessLevel != null" >
+        #{accessLevel,jdbcType=TINYINT},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directLine != null" >
+        #{directLine,jdbcType=VARCHAR},
+      </if>
+      <if test="branchPhone != null" >
+        #{branchPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null" >
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryTime != null" >
+        #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="positiveTime != null" >
+        #{positiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveTime != null" >
+        #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directsuperiorId != null" >
+        #{directsuperiorId,jdbcType=INTEGER},
+      </if>
+      <if test="directsuperiorName != null" >
+        #{directsuperiorName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceAccess != null" >
+        #{attendanceAccess,jdbcType=TINYINT},
+      </if>
+      <if test="canAdjustHour != null" >
+        #{canAdjustHour,jdbcType=DOUBLE},
+      </if>
+      <if test="alreadyAnnualHour != null" >
+        #{alreadyAnnualHour,jdbcType=DOUBLE},
+      </if>
+      <if test="assetsAccess != null" >
+        #{assetsAccess,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tl.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pass != null" >
+        pass = #{record.pass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realPass != null" >
+        real_pass = #{record.realPass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activated != null" >
+        activated = #{record.activated,jdbcType=TINYINT},
+      </if>
+      <if test="record.onjob != null" >
+        onjob = #{record.onjob,jdbcType=TINYINT},
+      </if>
+      <if test="record.approveAccess != null" >
+        approve_access = #{record.approveAccess,jdbcType=TINYINT},
+      </if>
+      <if test="record.accessLevel != null" >
+        access_level = #{record.accessLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=TINYINT},
+      </if>
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.directLine != null" >
+        direct_line = #{record.directLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchPhone != null" >
+        branch_phone = #{record.branchPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentId != null" >
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentName != null" >
+        department_name = #{record.departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createName != null" >
+        create_name = #{record.createName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.entryTime != null" >
+        entry_time = #{record.entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.positiveTime != null" >
+        positive_time = #{record.positiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leaveTime != null" >
+        leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginTime != null" >
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.directsuperiorId != null" >
+        directSuperior_id = #{record.directsuperiorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.directsuperiorName != null" >
+        directSuperior_name = #{record.directsuperiorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attendanceAccess != null" >
+        attendance_access = #{record.attendanceAccess,jdbcType=TINYINT},
+      </if>
+      <if test="record.canAdjustHour != null" >
+        can_adjust_hour = #{record.canAdjustHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.alreadyAnnualHour != null" >
+        already_annual_hour = #{record.alreadyAnnualHour,jdbcType=DOUBLE},
+      </if>
+      <if test="record.assetsAccess != null" >
+        assets_access = #{record.assetsAccess,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      pass = #{record.pass,jdbcType=VARCHAR},
+      real_pass = #{record.realPass,jdbcType=VARCHAR},
+      code = #{record.code,jdbcType=VARCHAR},
+      activated = #{record.activated,jdbcType=TINYINT},
+      onjob = #{record.onjob,jdbcType=TINYINT},
+      approve_access = #{record.approveAccess,jdbcType=TINYINT},
+      access_level = #{record.accessLevel,jdbcType=TINYINT},
+      sex = #{record.sex,jdbcType=TINYINT},
+      birth = #{record.birth,jdbcType=TIMESTAMP},
+      direct_line = #{record.directLine,jdbcType=VARCHAR},
+      branch_phone = #{record.branchPhone,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      company_id = #{record.companyId,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      department_name = #{record.departmentName,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      create_id = #{record.createId,jdbcType=INTEGER},
+      create_name = #{record.createName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      entry_time = #{record.entryTime,jdbcType=TIMESTAMP},
+      positive_time = #{record.positiveTime,jdbcType=TIMESTAMP},
+      leave_time = #{record.leaveTime,jdbcType=TIMESTAMP},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      directSuperior_id = #{record.directsuperiorId,jdbcType=INTEGER},
+      directSuperior_name = #{record.directsuperiorName,jdbcType=VARCHAR},
+      attendance_access = #{record.attendanceAccess,jdbcType=TINYINT},
+      can_adjust_hour = #{record.canAdjustHour,jdbcType=DOUBLE},
+      already_annual_hour = #{record.alreadyAnnualHour,jdbcType=DOUBLE},
+      assets_access = #{record.assetsAccess,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tl.pojo.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="realPass != null" >
+        real_pass = #{realPass,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="activated != null" >
+        activated = #{activated,jdbcType=TINYINT},
+      </if>
+      <if test="onjob != null" >
+        onjob = #{onjob,jdbcType=TINYINT},
+      </if>
+      <if test="approveAccess != null" >
+        approve_access = #{approveAccess,jdbcType=TINYINT},
+      </if>
+      <if test="accessLevel != null" >
+        access_level = #{accessLevel,jdbcType=TINYINT},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directLine != null" >
+        direct_line = #{directLine,jdbcType=VARCHAR},
+      </if>
+      <if test="branchPhone != null" >
+        branch_phone = #{branchPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null" >
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="entryTime != null" >
+        entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="positiveTime != null" >
+        positive_time = #{positiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaveTime != null" >
+        leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="directsuperiorId != null" >
+        directSuperior_id = #{directsuperiorId,jdbcType=INTEGER},
+      </if>
+      <if test="directsuperiorName != null" >
+        directSuperior_name = #{directsuperiorName,jdbcType=VARCHAR},
+      </if>
+      <if test="attendanceAccess != null" >
+        attendance_access = #{attendanceAccess,jdbcType=TINYINT},
+      </if>
+      <if test="canAdjustHour != null" >
+        can_adjust_hour = #{canAdjustHour,jdbcType=DOUBLE},
+      </if>
+      <if test="alreadyAnnualHour != null" >
+        already_annual_hour = #{alreadyAnnualHour,jdbcType=DOUBLE},
+      </if>
+      <if test="assetsAccess != null" >
+        assets_access = #{assetsAccess,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tl.pojo.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      real_pass = #{realPass,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      activated = #{activated,jdbcType=TINYINT},
+      onjob = #{onjob,jdbcType=TINYINT},
+      approve_access = #{approveAccess,jdbcType=TINYINT},
+      access_level = #{accessLevel,jdbcType=TINYINT},
+      sex = #{sex,jdbcType=TINYINT},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      direct_line = #{directLine,jdbcType=VARCHAR},
+      branch_phone = #{branchPhone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      entry_time = #{entryTime,jdbcType=TIMESTAMP},
+      positive_time = #{positiveTime,jdbcType=TIMESTAMP},
+      leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      directSuperior_id = #{directsuperiorId,jdbcType=INTEGER},
+      directSuperior_name = #{directsuperiorName,jdbcType=VARCHAR},
+      attendance_access = #{attendanceAccess,jdbcType=TINYINT},
+      can_adjust_hour = #{canAdjustHour,jdbcType=DOUBLE},
+      already_annual_hour = #{alreadyAnnualHour,jdbcType=DOUBLE},
+      assets_access = #{assetsAccess,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	select
+  	<include refid="Base_Column_List" />
+  	from user
+  	where name = #{username,jdbcType=VARCHAR};
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from user
+  </select>
+</mapper>
